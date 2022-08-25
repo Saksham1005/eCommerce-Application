@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Figtree&family=Josefin+Sans:ital,wght@1,600&family=Poppins:wght@200;300;800&family=Source+Sans+Pro:wght@300&display=swap");
+
+body {
+  /* font-family: "Open Sans", sans-serif; */
+  font-family: "Acme", sans-serif;
+  font-family: "Figtree", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.login_signUp {
+  font-family: "Poppins", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+}
+
+input.checkbox {
+  width: 1em;
+  height: 1em;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login_signUp * {
+  margin-bottom: 2rem;
+}
+
+form input {
+  padding: 0.5rem;
+  border: 2px #00b9a4 solid;
+  @apply rounded-lg;
+}
+
+form div {
+  padding: 0.5rem;
+  border: 2px #00b9a4 solid;
+  @apply rounded-lg;
+}
+
+form input:hover {
+  border: 2px #54e2d1 solid;
+}
+
+form button {
+  width: 10rem;
+  padding: 0.5rem;
+  border: 2px #00b9a4 solid;
+  @apply rounded-lg;
+}

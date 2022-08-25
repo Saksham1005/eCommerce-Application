@@ -1,0 +1,134 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  text-align: center;
+  height: 100vh;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+/* App Design */
+.custom-shape-divider-bottom-1656831246 {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1656831246 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 215px;
+}
+
+.custom-shape-divider-bottom-1656831246 .shape-fill {
+  fill: #54e2d1;
+}
+
+/** For mobile devices **/
+@media (max-width: 767px) {
+  .custom-shape-divider-bottom-1656831246 svg {
+    width: calc(100% + 1.3px);
+    height: 83px;
+  }
+}
+
+/* Links */
+.Links {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+// Product Classes
+// @import "@fontsource/open-sans";
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Figtree&family=Josefin+Sans:ital,wght@1,600&family=Poppins:wght@200;300;800&family=Source+Sans+Pro:wght@300&display=swap&text=eCommerce&text=Products&text=SignIn&text=SignUp");
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // font-family: sa;
+}
+
+body {
+  font-family: "Acme", sans-serif;
+  font-family: "Figtree", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 40% 60%;
+
+  font-weight: 300;
+
+  // margin
+  margin: 2em 0;
+
+  // Left Section
+  .left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .productImg {
+      height: 95%;
+      width: auto;
+      border-radius: 15px;
+    }
+
+    .product {
+      position: relative;
+    }
+
+    img.heart {
+      position: absolute;
+      top: 15px;
+      right: -40px;
+      /* box-shadow: 2px 2px 50px black; */
+    }
+  }
+  /* Right section */
+  .right {
+    display: grid;
+    grid-template-columns: 80% 20%;
+
+    .characteristics {
+      display: grid;
+      grid-template-rows: 50% 50%;
+
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.newfont {
+  font-weight: 800;
+  font-size: 4em;
+}
