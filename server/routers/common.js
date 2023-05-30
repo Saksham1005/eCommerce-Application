@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { check_access_token } = require("../middlewares/check_access_token");
+const { provideInfo } = require("../middlewares/provideInfo");
 
 const {
   products,
@@ -11,7 +12,7 @@ const {
   logout,
 } = require("../controllers/common");
 
-router.get("/", products);
+router.get("/", provideInfo, products);
 router.get("/profile", check_access_token, profile);
 
 router.post("/login", login);

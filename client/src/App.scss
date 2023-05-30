@@ -77,6 +77,10 @@ body {
   font-family: "Source Sans Pro", sans-serif;
 }
 
+.products {
+  min-height: 51.3vh;
+}
+
 .container {
   display: grid;
   grid-template-columns: 40% 60%;

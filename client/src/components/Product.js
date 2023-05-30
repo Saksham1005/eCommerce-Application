@@ -1,16 +1,25 @@
 import { useState, useEffect } from "react";
 import { Rating } from "react-simple-star-rating";
+import { connect } from "react-redux";
+import { saveProduct } from "../actions/userActionCreater";
 
 // Catch Rating value
 // const handleRating = (rate) => {
 //   setRating(rate);
 // };
+// Initial rating value
+// const [Rating, setRating] = useState(0);
 
 function Product(props) {
-  // Initial rating value
-  // const [Rating, setRating] = useState(0);
+  let handleSaveButtom = (e) => {
+    let { productId, isSaved } = props;
+    e.preventDefault();
 
-  let { name, price, description, rating } = props;
+    // handle save event
+    props.dispatch(saveProduct(productId, isSaved));
+  };
+
+  let { name, price, description, rating, isSaved, productId } = props;
 
   return (
     <div className="container">
@@ -22,12 +31,27 @@ function Product(props) {
             alt="Product Image"
             style={{ maxWidth: "200px" }}
           />
-          <img
-            src="white_heart.png"
-            className="heart"
-            alt="white heart"
-            style={{ height: "30px" }}
-          />
+
+          {/* Display Red or White Heart */}
+          {isSaved === false && (
+            <img
+              src="white_heart.png"
+              className="heart"
+              alt="white heart"
+              style={{ height: "30px", cursor: "pointer" }}
+              onClick={handleSaveButtom}
+            />
+          )}
+
+          {isSaved === true && (
+            <img
+              src="red_heart.png"
+              className="heart"
+              alt="red heart"
+              style={{ height: "30px", cursor: "pointer" }}
+              onClick={handleSaveButtom}
+            />
+          )}
         </div>
       </div>
 
@@ -58,4 +82,7 @@ function Product(props) {
   );
 }
 
-export default Product;
+function mapStateToProps(state) {
+  return {};
+}
+export default connect(mapStateToProps)(Product);

@@ -1,6 +1,7 @@
 const Product = require("../models/product");
 const Seller = require("../models/seller");
 const User = require("../models/user/user");
+const UserUsage = require("../models/user/userUsage");
 
 const { ObjectId } = require("mongoose").Types;
 
@@ -104,7 +105,7 @@ module.exports.login = async (req, res) => {
     };
 
     let accessToken = jwt.sign(data, process.env.SECRET_KEY, {
-      expiresIn: "1h",
+      expiresIn: "1800000",
     });
 
     let queryResult = await resultModel.updateOne(
@@ -223,6 +224,10 @@ module.exports.signUp = async (req, res) => {
 // Get Products for Users and Sellers
 module.exports.products = async (req, res) => {
   try {
+    //Initialization
+    let data = req.data ? req.data.data : null;
+    let type = req.data ? req.data.type : "";
+
     // Sort for Max Rating
     let sortMaxRatingProduct = req.query.sortMaxRatingProduct
       ? req.query.sortMaxRatingProduct
@@ -249,6 +254,23 @@ module.exports.products = async (req, res) => {
       .skip(pageSize * (page - 1))
       .limit(pageSize)
       .lean();
+
+    for (let product of products) {
+      // If user is logged in
+
+      if (type.toLowerCase() === "user") {
+        let userUsage = await UserUsage.findOne({
+          userId: data._id,
+          productId: product._id,
+        }).lean();
+
+        if (userUsage) {
+          product["isSaved"] = userUsage["isSaved"];
+        } else {
+          product["isSaved"] = false;
+        }
+      }
+    }
 
     return res.status(200).json({
       message: "Fetched the products!",

@@ -7,6 +7,10 @@ const {
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
 
+  GET_SAVED_PRODUCTS_START,
+  GET_SAVED_PRODUCTS_SUCCESS,
+  GET_SAVED_PRODUCTS_FAILED,
+
   TOGGLE_PRODUCT_CART_START,
   ADD_PRODUCT_CART_SUCCESS,
   DELETE_PRODUCT_CART_SUCCESS,
@@ -19,12 +23,25 @@ const {
   RATE_PRODUCT_START,
   RATE_PRODUCT_SUCCESS,
   RATE_PRODUCT_FAILED,
+
+  SAVE_PRODUCT_START,
+  SAVE_PRODUCT_SUCCESS,
+  SAVE_PRODUCT_FAILED,
 } = require("./actionTypes");
 
 const {
   getAuthTokenFromLocalStorage,
   getFormBody,
 } = require("../helpers/utils");
+
+const {
+  saveProductURL,
+  getSavedProductsURL,
+  getOrdersURL,
+  getCartURL,
+  toggleProductInCartURL,
+  rateProductURL,
+} = require("../helpers/urls");
 
 // GET CART
 function getCart_start() {
@@ -51,7 +68,7 @@ export function getCart() {
   return function (dispatch) {
     dispatch(getCart_start());
 
-    fetch("/user/cart", {
+    fetch(getCartURL, {
       method: "GET",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -94,7 +111,7 @@ export function getOrders() {
   return function (dispatch) {
     dispatch(getOrders_start());
 
-    fetch("/user/orders", {
+    fetch(getOrdersURL, {
       method: "GET",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -107,6 +124,49 @@ export function getOrders() {
           return dispatch(getOrders_success(data.data));
         } else {
           return dispatch(getOrders_failed(data.message));
+        }
+      });
+  };
+}
+
+// GET SAVED PRODUCTS
+function getSavedProducts_start() {
+  return {
+    type: GET_SAVED_PRODUCTS_START,
+  };
+}
+
+function getSavedProducts_success(products) {
+  return {
+    type: GET_SAVED_PRODUCTS_SUCCESS,
+    data: products,
+  };
+}
+
+function getSavedProducts_failed(error) {
+  return {
+    type: GET_SAVED_PRODUCTS_FAILED,
+    data: error,
+  };
+}
+
+export function getSavedProducts() {
+  return function (dispatch) {
+    dispatch(getSavedProducts_start());
+
+    fetch(getSavedProductsURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          return dispatch(getSavedProducts_success(data.data));
+        } else {
+          return dispatch(getSavedProducts_failed(data.message));
         }
       });
   };
@@ -144,7 +204,7 @@ export function toggleProductInCart(productId, qty) {
   return function (dispatch) {
     dispatch(toggleProductInCart_start());
 
-    fetch("/user/product/cart", {
+    fetch(toggleProductInCartURL, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -222,7 +282,7 @@ function rateProduct_failed(message) {
 
 export function rateProduct(productId, rating) {
   return function (dispatch) {
-    fetch("/user/product/rate", {
+    fetch(rateProductURL, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -238,6 +298,47 @@ export function rateProduct(productId, rating) {
           return;
         }
         return dispatch(rateProduct_failed(data.message));
+      });
+  };
+}
+
+// SAVE PRODUCT
+function saveProduct_success(productId, isSaved) {
+  return {
+    type: SAVE_PRODUCT_SUCCESS,
+    data: {
+      productId,
+      isSaved,
+    },
+  };
+}
+
+function saveProduct_failed(message) {
+  return {
+    type: SAVE_PRODUCT_FAILED,
+    data: message,
+  };
+}
+
+export function saveProduct(productId, isSaved) {
+  return function (dispatch) {
+    fetch(saveProductURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+      },
+      body: getFormBody({ productId }),
+      mode: "cors",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(saveProduct_success(productId, isSaved));
+
+          return;
+        }
+        return dispatch(saveProduct_failed(data.message));
       });
   };
 }

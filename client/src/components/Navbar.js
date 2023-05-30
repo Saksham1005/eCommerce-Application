@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 
 import { logout } from "../actions/commonActionCreaters";
 
+import "../scss/Dropdown.scss";
+
 class Navbar extends Component {
   constructor(props) {
     super(props);
@@ -57,16 +59,47 @@ class Navbar extends Component {
 
           {isLoggedIn && (
             <div style={{ display: "grid", gridTemplateColumns: "60% 40%" }}>
-              <div>
-                <Link to="/profile">{name}</Link>
-                {/* <p>{name}</p> */}
+              {/* Dropdown */}
+
+              <div className="dropdown">
+                <Link to="/profile" className="dropbtn">
+                  {name.split(" ")[0]}
+                </Link>
 
                 <img
                   src="/profile.png"
                   className="lg:w-8 w-6 profile"
-                  alt="Profile Picture!"
+                  alt="Profile!"
                 />
+
+                <div className="dropdown-content">
+                  <Link to="/wishlist" className="link">
+                    <img
+                      src="/wishlist.png"
+                      className="lg:w-8 w-6 profile"
+                      alt="Wishlist"
+                    />
+                    Wishlist
+                  </Link>
+                  <Link to="/cart" className="link">
+                    <img
+                      src="/cart.png"
+                      className="lg:w-8 w-6 profile"
+                      alt="Cart"
+                    />
+                    Cart
+                  </Link>
+                  <Link to="/orders" className="link">
+                    <img
+                      src="/orders.png"
+                      className="lg:w-8 w-6 profile"
+                      alt="Orders"
+                    />
+                    Orders
+                  </Link>
+                </div>
               </div>
+
               <button type="submit" onClick={this.handleLogoutButtom}>
                 Logout
               </button>

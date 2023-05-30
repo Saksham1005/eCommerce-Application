@@ -1,4 +1,6 @@
 const {
+  AUTHENTICATE_USER,
+
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_FAILED,
@@ -127,6 +129,14 @@ export function login(email, password, type) {
   };
 }
 
+// AUTHENTICATE USER
+export function authenticateUser(data) {
+  return {
+    type: AUTHENTICATE_USER,
+    data,
+  };
+}
+
 // LOGOUT
 function logout_success() {
   return {
@@ -196,11 +206,21 @@ export function getProducts(sortMaxRatingProduct, sortProductsMaxSales) {
       sortProductsMaxSales: sortProductsMaxSales,
     }).toString();
 
+    // Sending headers when we have token
+    let headers = {};
+    if (getAuthTokenFromLocalStorage()) {
+      headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+      };
+    }
+
     // console.log(params);
     getProductURL += "?" + params;
 
     fetch(getProductURL, {
       method: "GET",
+      headers: headers,
       mode: "cors",
     })
       .then((response) => {

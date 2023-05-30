@@ -27,8 +27,6 @@ module.exports.check_access_token = async (req, res, next) => {
       if (!user) {
         return errorResponse(res, "Auth Failed!", 400);
       }
-
-      req.data.userId = user._id;
     } else {
       let seller = await Seller.findOne({
         _id: decode.data._id,
@@ -38,8 +36,6 @@ module.exports.check_access_token = async (req, res, next) => {
       if (!seller) {
         return errorResponse(res, "Auth Failed!", 400);
       }
-
-      req.data.sellerId = seller._id;
     }
 
     next();

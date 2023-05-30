@@ -407,7 +407,7 @@ module.exports.rate = async (req, res) => {
   }
 };
 
-module.exports.toggleLike_Save = async (req, res) => {
+module.exports.toggleSave = async (req, res) => {
   try {
     // Check all the required fields
     let schema = yup.object({
@@ -424,7 +424,7 @@ module.exports.toggleLike_Save = async (req, res) => {
     const data = req.data.data;
     let type = req.data.type;
 
-    let userId = req.data.userId;
+    let userId = data._id;
     let productId = req.body.productId;
 
     if (type.toLowerCase() !== "user") {
@@ -451,7 +451,6 @@ module.exports.toggleLike_Save = async (req, res) => {
 
       return res.status(200).json({
         message: "UnSaved the given product!",
-
         success: true,
       });
     } else {

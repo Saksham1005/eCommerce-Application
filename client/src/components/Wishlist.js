@@ -1,25 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
-import { getProducts } from "../actions/commonActionCreaters";
+import { Redirect } from "react-router-dom";
+import { getSavedProducts } from "../actions/userActionCreater";
 
 import Product from "./Product";
 
-class Products extends Component {
+// Common component for Wishlist, orders, cart
+// Complete it by history logi
+class Wishlist extends Component {
   constructor() {
     super();
   }
 
   componentDidMount() {
-    this.props.dispatch(getProducts());
+    this.props.dispatch(getSavedProducts());
   }
 
   render() {
     const { products } = this.props.products;
-    const { user } = this.props.auth;
+    const { user, isLoggedIn } = this.props.auth;
 
     return (
       <div className="products">
+        {!isLoggedIn && <Redirect to="/login" />}
+
         <div className="product">
           {products.map((product, index) => {
             return (
@@ -47,4 +51,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Products);
+export default connect(mapStateToProps)(Wishlist);

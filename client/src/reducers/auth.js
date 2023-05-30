@@ -1,4 +1,6 @@
 const {
+  AUTHENTICATE_USER,
+
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_FAILED,
@@ -36,6 +38,17 @@ export default function auth(state = initial_auth_state, action) {
       return {
         ...state,
         inProgress: true,
+      };
+
+    case AUTHENTICATE_USER:
+      return {
+        ...state,
+        user: {
+          name: data.data.name,
+          email: data.data.email,
+          type: data.type,
+        },
+        isLoggedIn: true,
       };
 
     case LOGIN_SUCCESS:
