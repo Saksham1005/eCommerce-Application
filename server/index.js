@@ -16,7 +16,7 @@ app.use((req, res, next) => {
   // http://localhost:3000
   res.header(
     "Access-Control-Allow-Origin",
-    "https://e-commerce-application-d31u.onrender.com"
+    "https://ecommerce-prod-application.netlify.app/"
   );
   res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
   res.header(
