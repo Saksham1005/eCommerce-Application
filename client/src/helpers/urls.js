@@ -1,4 +1,4 @@
-const rootURL = "https://e-commerce-application-d31u.onrender.com";
+const rootURL = "http://localhost:5000";
 
 // Common Action URLs
 const loginURL = rootURL + "/login";
