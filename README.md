@@ -10,29 +10,39 @@ Used Express.js to establish the Web Server and NoSQL to create the database.
 
 ## API Reference
 
-#### Products added and retrieved by Seller
+#### Common APIs for seller and user.
 
 ```http
+  GET /
+  GET /profile
+  POST /login
+  POST /logout
+  POST /signup
+  POST /updateProfile
+```
+
+#### User APIs Get Cart, Get Orders, Get Saved Products, Add / Remove Product from Cart, Buy Product, Rate Product, Save Product 
+
+```http
+  GET /user/cart
+  GET /user/orders
+  GET /user/savedProducts
+  POST /user/product/cart
+  POST /user/product/buy
+  POST /user/product/rate
+  POST /user/product/save
+```
+
+#### Seller APIs Get Products, Add Product 
+
+```http
+  GET /seller/products
   POST /seller/addProduct
-  GET  /seller/products
 ```
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `api_key` | `string` | **Required**.  |
-
-#### User profile, login , logout, cart, orders, savedProducts
-
-```http
-  GET /profile
-  POST /login
-  POST /logout
-  GET /user/cart
-  GET /user/orders
-  GET /user/savedProducts
-```
-
-
 
 ## Tech Stack
 
@@ -40,6 +50,11 @@ Used Express.js to establish the Web Server and NoSQL to create the database.
 
 **Server:** Node.js, Express.js
 
+
+## 🔗 Links
+[![Project Link](https://img.shields.io/badge/Project_Link-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ecommerce-prod-application.netlify.app/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/saksham-prajapati-1923421b3/)
+[![leetcode](https://img.shields.io/badge/Leetcode-1DA1F2?style=for-the-badge&logo=leetcode&logoColor=white)](https://leetcode.com/Saksham1005/)
 
 ## Other Common Github Profile Sections
 👩‍💻 I'm currently working on improving my skills in Web Development and Data Structures and Algorithms.
