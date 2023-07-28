@@ -10,7 +10,7 @@ Used Express.js to establish the Web Server and NoSQL to create the database.
 
 ## API Reference
 
-#### Common APIs for seller and user.
+#### Common APIs for Seller and User- Get Products, Profile, Login, Logout, Sign Up, Update Profile.
 
 ```http
   GET /
@@ -21,7 +21,7 @@ Used Express.js to establish the Web Server and NoSQL to create the database.
   POST /updateProfile
 ```
 
-#### User APIs Get Cart, Get Orders, Get Saved Products, Add / Remove Product from Cart, Buy Product, Rate Product, Save Product 
+#### User APIs- Get Cart, Get Orders, Get Saved Products, Add / Remove Product from Cart, Buy Product, Rate Product, Save Product 
 
 ```http
   GET /user/cart
@@ -33,7 +33,7 @@ Used Express.js to establish the Web Server and NoSQL to create the database.
   POST /user/product/save
 ```
 
-#### Seller APIs Get Products, Add Product 
+#### Seller APIs- Get Products, Add Product 
 
 ```http
   GET /seller/products
