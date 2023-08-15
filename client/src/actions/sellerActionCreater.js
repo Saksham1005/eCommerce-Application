@@ -37,17 +37,16 @@ function addProduct_failed(data) {
   };
 }
 
-export function addProduct(name, price, img, description) {
+export function addProduct(formData) {
   return function (dispatch) {
     dispatch(addProduct_start());
 
     fetch(addProductURL, {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
-      body: getFormBody({ name, price, img, description }),
+      body: formData,
     })
       .then((response) => response.json())
       .then((data) => {

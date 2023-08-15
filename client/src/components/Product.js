@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { Rating } from "react-simple-star-rating";
 import { connect } from "react-redux";
-import { saveProduct } from "../actions/userActionCreater";
+import {
+  saveProduct,
+  buyProduct,
+  toggleProductInCart,
+} from "../actions/userActionCreater";
 
 // Catch Rating value
 // const handleRating = (rate) => {
@@ -19,14 +23,32 @@ function Product(props) {
     props.dispatch(saveProduct(productId, isSaved));
   };
 
-  let { name, price, description, rating, isSaved, productId } = props;
+  let handleBuyButtom = (e) => {
+    let { productId } = props;
+    // qty
+    e.preventDefault();
+
+    // handle buy event
+    props.dispatch(buyProduct(productId, 1));
+  };
+
+  let handleToggleCartButtom = (e) => {
+    let { productId } = props;
+    // qty
+    e.preventDefault();
+
+    // handle toggle cart event
+    props.dispatch(toggleProductInCart(productId, 1));
+  };
+
+  let { name, price, description, img, rating, isSaved, productId } = props;
 
   return (
     <div className="container">
       <div className="left">
         <div className="product">
           <img
-            src="chair.jpg"
+            src={img}
             className="productImg"
             alt="Product Image"
             style={{ maxWidth: "200px" }}
@@ -51,6 +73,22 @@ function Product(props) {
               style={{ height: "30px", cursor: "pointer" }}
               onClick={handleSaveButtom}
             />
+          )}
+
+          {/* Error */}
+          {props.auth.isLoggedIn && (
+            <button
+              className="add-to-cart-btn"
+              onClick={handleToggleCartButtom}
+            >
+              Add to Cart
+            </button>
+          )}
+
+          {props.auth.isLoggedIn && (
+            <button className="buy-btn" onClick={handleBuyButtom}>
+              Buy Now
+            </button>
           )}
         </div>
       </div>
@@ -83,6 +121,8 @@ function Product(props) {
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    auth: state.auth,
+  };
 }
 export default connect(mapStateToProps)(Product);
