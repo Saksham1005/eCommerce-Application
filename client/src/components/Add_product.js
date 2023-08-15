@@ -10,7 +10,7 @@ class Add_product extends Component {
     this.state = {
       name: "",
       price: "",
-      image: "",
+      image: null,
       description: "",
     };
   }
@@ -25,29 +25,22 @@ class Add_product extends Component {
     e.preventDefault();
     let { name, price, image, description } = this.state;
 
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("price", price);
+
     // handle add Product
-    // see this
-    this.props.dispatch(addProduct(name, price, image, description));
+    this.props.dispatch(addProduct(formData));
 
     this.setState({
       name: "",
       price: "",
-      image: "",
+      image: null,
       description: "",
     });
   };
-
-  handleFileChange(selectorFiles) {
-    // Working with fileList
-    // console.log(selectorFiles);
-    // this.state({
-    //   image: selectorFiles,
-    // });
-  }
-
-  // handle file input
-  // Todo
-  // error handling
 
   render() {
     return (
@@ -82,8 +75,12 @@ class Add_product extends Component {
               placeholder="Choose Product Image."
               style={{ marginBottom: 0 }}
               required="required"
-              value={this.state.image}
-              onChange={(e) => this.handleFileChange(e.target.files)}
+              // value={this.state.image}
+              // (While changing state of a field to store a file remove value attribute)
+              onChange={(e) =>
+                this.handleChangeValue("image", e.target.files[0])
+              }
+              accept="image/*"
             />
           </div>
 

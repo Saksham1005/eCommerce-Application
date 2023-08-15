@@ -41,6 +41,7 @@ const {
   getCartURL,
   toggleProductInCartURL,
   rateProductURL,
+  buyProductURL,
 } = require("../helpers/urls");
 
 // GET CART
@@ -74,6 +75,7 @@ export function getCart() {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
+      mode: "cors",
     })
       .then((response) => response.json())
       .then((data) => {
@@ -117,6 +119,7 @@ export function getOrders() {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
+      mode: "cors",
     })
       .then((response) => response.json())
       .then((data) => {
@@ -160,6 +163,7 @@ export function getSavedProducts() {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
+      mode: "cors",
     })
       .then((response) => response.json())
       .then((data) => {
@@ -211,6 +215,7 @@ export function toggleProductInCart(productId, qty) {
         Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
       body: getFormBody({ productId, qty }),
+      mode: "cors",
     })
       .then((response) => response.json())
       .then((data) => {
@@ -245,13 +250,14 @@ function buyProduct_failed(message) {
 
 export function buyProduct(productId, qty) {
   return function (dispatch) {
-    fetch("/user/product/buy", {
+    fetch(buyProductURL, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
       body: getFormBody({ productId, qty }),
+      mode: "cors",
     })
       .then((response) => response.json())
       .then((data) => {
@@ -289,6 +295,7 @@ export function rateProduct(productId, rating) {
         Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
       },
       body: getFormBody({ productId, rating }),
+      mode: "cors",
     })
       .then((response) => response.json())
       .then((data) => {

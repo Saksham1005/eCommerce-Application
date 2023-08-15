@@ -3,7 +3,13 @@ export function getFormBody(params) {
 
   for (let property in params) {
     let encodedKey = encodeURIComponent(property); // 'user name' => 'user%20name'
-    let encodedValue = encodeURIComponent(params[property]); // aakash 123 => aakash%2020123
+    let encodedValue; // aakash 123 => aakash%2020123
+
+    if (property !== "image") {
+      encodedValue = encodeURIComponent(params[property]);
+    } else {
+      encodedValue = params[property];
+    }
 
     formBody.push(encodedKey + "=" + encodedValue);
   }

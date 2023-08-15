@@ -113,6 +113,42 @@ body {
       right: -40px;
       /* box-shadow: 2px 2px 50px black; */
     }
+
+    .add-to-cart-btn {
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      position: absolute;
+      bottom: 15px;
+      right: -135px;
+    }
+
+    .add-to-cart-btn:hover {
+      background-color: #2980b9;
+    }
+
+    .buy-btn {
+      background-color: #27ae60;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      position: absolute;
+      bottom: 15px;
+      right: -245px;
+    }
+
+    .buy-btn:hover {
+      background-color: #219653;
+    }
   }
   /* Right section */
   .right {

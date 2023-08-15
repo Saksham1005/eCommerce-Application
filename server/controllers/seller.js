@@ -1,8 +1,26 @@
 const Product = require("../models/product");
 const Seller = require("../models/seller");
 
+require("dotenv").config();
+
 const { ObjectId } = require("mongoose").Types;
 const yup = require("yup");
+
+// Using cloudinary to store images
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
+
+const options = {
+  use_filename: true,
+  unique_filename: false,
+  overwrite: true,
+};
 
 // Middleware
 const { errorResponse } = require("../middlewares/error_response");
@@ -22,7 +40,6 @@ module.exports.addProduct = async (req, res) => {
     let schema = yup.object({
       name: yup.string().required("Name is Required!"),
       price: yup.number().required("Price is Required!"),
-      img: yup.string().required("Image is Required!"),
       description: yup.string().required("Description is Required!"),
     });
 
@@ -38,19 +55,27 @@ module.exports.addProduct = async (req, res) => {
 
     let productName = req.body.name;
     let productPrice = req.body.price;
-    let productImg = req.body.img;
     let productDescription = req.body.description;
 
     if (type.toLowerCase() !== "seller") {
       return errorResponse(res, "Not authorized to access this API", 400);
     }
 
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const image = req.file;
+
+    // uploading the file to cloudinary
+    const { url } = await cloudinary.uploader.upload(image.path, options);
+
     let lastUpdatedDTM = new Date();
 
     let product = await Product.create({
       name: productName,
       price: productPrice,
-      img: productImg,
+      img: url,
       description: productDescription,
       seller: ObjectId(data._id),
       lastUpdatedDTM,
@@ -96,6 +121,8 @@ module.exports.deleteOrOutOfStockProduct = async (req, res) => {
     if (!validate.status) {
       return errorResponse(res, validate.error, 400);
     }
+
+    let _id = ObjectId(req.body._id);
 
     let product = await Product.findOne({ _id });
 

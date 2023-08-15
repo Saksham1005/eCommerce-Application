@@ -13,6 +13,7 @@ const getSavedProductsURL = rootURL + "/user/savedProducts";
 const getCartURL = rootURL + "/user/cart";
 const getOrdersURL = rootURL + "/user/orders";
 const toggleProductInCartURL = rootURL + "/user/product/cart";
+const buyProductURL = rootURL + "/user/product/buy";
 
 // Seller Action URLs
 const getProductURL = rootURL;
@@ -32,5 +33,6 @@ export {
   getCartURL,
   getOrdersURL,
   toggleProductInCartURL,
+  buyProductURL,
   rateProductURL,
 };

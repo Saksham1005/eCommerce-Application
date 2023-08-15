@@ -27,6 +27,7 @@ class Products extends Component {
                 name={product.name}
                 price={product.price}
                 description={product.description}
+                img={product.img}
                 rating={product.rating}
                 isSaved={product.isSaved}
                 productId={product._id}

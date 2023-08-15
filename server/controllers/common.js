@@ -105,7 +105,7 @@ module.exports.login = async (req, res) => {
     };
 
     let accessToken = jwt.sign(data, process.env.SECRET_KEY, {
-      expiresIn: "1800000",
+      expiresIn: "180000000",
     });
 
     let queryResult = await resultModel.updateOne(
