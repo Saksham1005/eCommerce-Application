@@ -6,7 +6,7 @@ import { getSavedProducts } from "../actions/userActionCreater";
 import Product from "./Product";
 
 // Common component for Wishlist, orders, cart
-// Complete it by history logi
+// Complete it by history logic
 class Wishlist extends Component {
   constructor() {
     super();
@@ -30,6 +30,7 @@ class Wishlist extends Component {
               <Product
                 name={product.name}
                 price={product.price}
+                img={product.img}
                 description={product.description}
                 rating={product.rating}
                 isSaved={product.isSaved}

@@ -168,13 +168,11 @@ module.exports.addRemoveProductFromCart = async (req, res) => {
 
     let user = await User.findOne({ _id: data._id });
 
-    let cart = user.cart;
-
     let removedProduct = false;
 
-    cart.map(async (product, index) => {
+    user.cart.map(async (product, index) => {
       if (product.product.toString() === productId) {
-        cart.splice(index, 1);
+        user.cart.splice(index, 1);
         removedProduct = true;
 
         await user.save();
@@ -198,7 +196,7 @@ module.exports.addRemoveProductFromCart = async (req, res) => {
       return errorResponse(res, "Product is Out of Stock!", 400);
     }
 
-    cart.unshift({
+    user.cart.unshift({
       product: ObjectId(productId),
       qty,
     });

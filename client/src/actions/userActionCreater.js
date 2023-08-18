@@ -96,6 +96,7 @@ function getOrders_start() {
 }
 
 function getOrders_success(products) {
+  // console.log(products);
   return {
     type: GET_ORDER_SUCCESS,
     data: products,
@@ -190,10 +191,13 @@ function addProductInCart_success(data) {
   };
 }
 
-function deleteProductInCart_success(data) {
+function deleteProductInCart_success(productId, qty) {
   return {
     type: DELETE_PRODUCT_CART_SUCCESS,
-    data,
+    data: {
+      productId,
+      qty,
+    },
   };
 }
 
@@ -206,7 +210,7 @@ function toggleProductInCart_failed(message) {
 
 export function toggleProductInCart(productId, qty) {
   return function (dispatch) {
-    dispatch(toggleProductInCart_start());
+    // dispatch(toggleProductInCart_start());
 
     fetch(toggleProductInCartURL, {
       method: "POST",
@@ -221,14 +225,13 @@ export function toggleProductInCart(productId, qty) {
       .then((data) => {
         if (data.success) {
           if (data.removed === true) {
-            dispatch(deleteProductInCart_success(data.data));
+            dispatch(deleteProductInCart_success(productId, qty));
           } else {
             dispatch(addProductInCart_success(data.data));
           }
-
-          return;
+        } else {
+          dispatch(toggleProductInCart_failed(data.message));
         }
-        return dispatch(toggleProductInCart_failed(data.message));
       });
   };
 }
@@ -263,10 +266,9 @@ export function buyProduct(productId, qty) {
       .then((data) => {
         if (data.success) {
           dispatch(buyProduct_success(data.data));
-
-          return;
+        } else {
+          dispatch(buyProduct_failed(data.message));
         }
-        return dispatch(buyProduct_failed(data.message));
       });
   };
 }
@@ -301,10 +303,9 @@ export function rateProduct(productId, rating) {
       .then((data) => {
         if (data.success) {
           dispatch(rateProduct_success(rating));
-
-          return;
+        } else {
+          dispatch(rateProduct_failed(data.message));
         }
-        return dispatch(rateProduct_failed(data.message));
       });
   };
 }
@@ -342,10 +343,9 @@ export function saveProduct(productId, isSaved) {
       .then((data) => {
         if (data.success) {
           dispatch(saveProduct_success(productId, isSaved));
-
-          return;
+        } else {
+          dispatch(saveProduct_failed(data.message));
         }
-        return dispatch(saveProduct_failed(data.message));
       });
   };
 }

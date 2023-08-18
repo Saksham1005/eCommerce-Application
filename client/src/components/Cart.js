@@ -17,7 +17,7 @@ class Cart extends Component {
   }
 
   render() {
-    const { products } = this.props.products;
+    const { orders } = this.props.product_state;
     const { user, isLoggedIn } = this.props.auth;
 
     return (
@@ -25,16 +25,17 @@ class Cart extends Component {
         {!isLoggedIn && <Redirect to="/login" />}
 
         <div className="product">
-          {products.map((product, index) => {
+          {orders.map((order, index) => {
             return (
               <Product
-                name={product.name}
-                price={product.price}
-                description={product.description}
-                rating={product.rating}
-                isSaved={product.isSaved}
-                productId={product._id}
-                key={product._id}
+                name={order.product.name}
+                price={order.product.price}
+                img={order.product.img}
+                description={order.product.description}
+                rating={order.product.rating}
+                isSaved={order.product.isSaved}
+                productId={order.product._id}
+                key={order._id}
               />
             );
           })}
@@ -46,7 +47,7 @@ class Cart extends Component {
 
 function mapStateToProps(state) {
   return {
-    products: state.products,
+    product_state: state.products,
     auth: state.auth,
   };
 }

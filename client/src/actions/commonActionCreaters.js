@@ -199,7 +199,7 @@ function getProductFailed(error) {
 
 export function getProducts(sortMaxRatingProduct, sortProductsMaxSales) {
   return function (dispatch) {
-    // dispatch(getProductStart());
+    dispatch(getProductStart());
 
     let params = new URLSearchParams({
       sortMaxRatingProduct: sortMaxRatingProduct,

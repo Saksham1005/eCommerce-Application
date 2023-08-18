@@ -49,19 +49,19 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Products} />
 
+          <Route exact path="/login" component={Login} />
+
+          <Route exact path="/signUp" component={SignUp} />
+
+          <Route exact path="/add_product" component={Add_product} />
+
+          <Route exact path="/profile" component={Profile} />
+
+          <Route exact path="/Wishlist" component={Wishlist} />
+
           <Route exact path="/cart" component={Cart} />
 
           <Route exact path="/orders" component={Orders} />
-
-          <Route path="/login" component={Login} />
-
-          <Route path="/signUp" component={SignUp} />
-
-          <Route path="/add_product" component={Add_product} />
-
-          <Route path="/profile" component={Profile} />
-
-          <Route path="/Wishlist" component={Wishlist} />
 
           <Route component={Page404} />
         </Switch>

@@ -122,12 +122,21 @@ module.exports.deleteOrOutOfStockProduct = async (req, res) => {
       return errorResponse(res, validate.error, 400);
     }
 
+    // Initialization
+    const data = req.data.data;
+    let type = req.data.type;
+
+    if (type.toLowerCase() !== "seller") {
+      return errorResponse(res, "Not authorized to access this API", 400);
+    }
+
     let _id = ObjectId(req.body._id);
 
-    let product = await Product.findOne({ _id });
+    // Find the product which belongs to this seller.
+    let product = await Product.findOne({ _id, seller: ObjectId(data._id) });
 
     if (!product) {
-      return errorResponse(res, "Product Id is invalid!", 404);
+      return errorResponse(res, "Product Id is invalid for the seller!", 404);
     }
 
     // Find the seller of the product

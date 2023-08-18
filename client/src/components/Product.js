@@ -75,13 +75,12 @@ function Product(props) {
             />
           )}
 
-          {/* Error */}
           {props.auth.isLoggedIn && (
             <button
               className="add-to-cart-btn"
               onClick={handleToggleCartButtom}
             >
-              Add to Cart
+              Toggle Product to Cart
             </button>
           )}
 

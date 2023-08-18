@@ -48,6 +48,7 @@ let initital_products_state = {
     message: "",
   },
   products: [],
+  orders: [],
   inProgress: false,
 };
 
@@ -60,7 +61,7 @@ export default function products(state = initital_products_state, action) {
     case ADD_PRODUCT_START:
     case DELETE_PRODUCT_START:
     case SAVE_PRODUCT_START:
-    case TOGGLE_PRODUCT_CART_START:
+      // case TOGGLE_PRODUCT_CART_START:
       // case BUY_PRODUCT_START:
       return {
         ...state,
@@ -69,13 +70,12 @@ export default function products(state = initital_products_state, action) {
           message: "",
         },
         products: [],
+        orders: [],
         inProgress: true,
       };
 
     case GET_PRODUCTS_SUCCESS:
     case GET_SAVED_PRODUCTS_SUCCESS:
-    case GET_CART_SUCCESS:
-    case GET_ORDER_SUCCESS:
       return {
         ...state,
         error: {
@@ -86,8 +86,30 @@ export default function products(state = initital_products_state, action) {
         inProgress: false,
       };
 
+    case GET_CART_SUCCESS:
+    case GET_ORDER_SUCCESS:
+      return {
+        ...state,
+        error: {
+          value: false,
+          message: "",
+        },
+        orders: action.data,
+        inProgress: false,
+      };
+
     case GET_PRODUCTS_FAILED:
     case GET_SAVED_PRODUCTS_FAILED:
+      return {
+        ...state,
+        error: {
+          value: true,
+          message: action.data,
+        },
+        products: [],
+        inProgress: false,
+      };
+
     case GET_CART_FAILED:
     case GET_ORDER_FAILED:
       return {
@@ -96,7 +118,7 @@ export default function products(state = initital_products_state, action) {
           value: true,
           message: action.data,
         },
-        products: [],
+        orders: [],
         inProgress: false,
       };
 
@@ -109,9 +131,10 @@ export default function products(state = initital_products_state, action) {
           value: false,
           message: "",
         },
-        products: [action.data, ...state.products],
+        products: [...state.products],
         inProgress: false,
       };
+
     case RATE_PRODUCT_SUCCESS:
       return {
         ...state,
@@ -156,8 +179,8 @@ export default function products(state = initital_products_state, action) {
           value: false,
           message: "",
         },
-        products: state.products.filter((product) => {
-          return product._id !== action.data;
+        orders: state.orders.filter((order) => {
+          return order.product._id !== action.data.productId;
         }),
         inProgress: false,
       };

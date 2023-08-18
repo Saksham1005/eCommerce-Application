@@ -17,24 +17,24 @@ class Orders extends Component {
   }
 
   render() {
-    const { products } = this.props.products;
+    const { orders } = this.props.product_state;
     const { user, isLoggedIn } = this.props.auth;
-    console.log(products);
 
     return (
       <div className="products">
         {!isLoggedIn && <Redirect to="/login" />}
 
         <div className="product">
-          {products.map((product, index) => {
+          {orders.map((order, index) => {
             return (
               <Product
-                name={product.product.name}
-                price={product.product.price}
-                description={product.product.description}
-                rating={product.product.rating}
-                productId={product.product._id}
-                key={product.product._id}
+                name={order.product.name}
+                img={order.product.img}
+                price={order.product.price}
+                description={order.product.description}
+                rating={order.product.rating}
+                productId={order.product._id}
+                key={order._id}
               />
             );
           })}
@@ -46,7 +46,7 @@ class Orders extends Component {
 
 function mapStateToProps(state) {
   return {
-    products: state.products,
+    product_state: state.products,
     auth: state.auth,
   };
 }
