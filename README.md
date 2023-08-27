@@ -7,6 +7,8 @@ JSON Web Token(JWT) authentication strategy is used to authenticate Users and Se
 
 Used Express.js to establish the Web Server and NoSQL to create the database.
 
+Deployed the Frontend React Application on Netlify and Backend Node.js Express server on cyclic.
+
 
 ## API Reference
 
