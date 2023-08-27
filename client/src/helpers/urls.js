@@ -1,4 +1,4 @@
-const rootURL = "https://e-commerce-application-d31u.onrender.com";
+const rootURL = "https://e-commerce-application.cyclic.cloud";
 
 // Common Action URLs
 const loginURL = rootURL + "/login";
