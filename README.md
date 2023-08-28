@@ -4,6 +4,7 @@
 Built an e-commerce Application with React, Redux, and Node.js which helps users to buy their desired products from different authenticated sellers.
 
 JSON Web Token(JWT) authentication strategy is used to authenticate Users and Sellers in APIs.
+Integrated Cloudinary into the backend server to save the image of the product on the Cloudinary platform, and then saved the image URL into the database.
 
 Used Express.js to establish the Web Server and NoSQL to create the database.
 
