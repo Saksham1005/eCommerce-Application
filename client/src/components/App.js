@@ -1,5 +1,5 @@
 import React, { useState, Component } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 
 import "../App.scss";
 import "../css/Navbar.css";
@@ -7,6 +7,8 @@ import Bottom_App_Design from "./Bottom_App_Design";
 
 import { getAuthTokenFromLocalStorage } from "../helpers/utils";
 import { authenticateUser } from "../actions/commonActionCreaters";
+
+import { GuardSpinner } from "react-spinners-kit";
 
 import {
   Navbar,
@@ -42,9 +44,25 @@ class App extends Component {
   }
 
   render() {
+    const { products, auth } = this.props;
+
+    let inProgress = products.inProgress || auth.inProgress;
+
     return (
       <div className="App">
         <Navbar />
+
+        {inProgress && (
+          <div className="loader">
+            <GuardSpinner
+              size={50}
+              color="#686769"
+              frontColor="#00ff89"
+              backColor="#686769"
+              loading={inProgress}
+            />
+          </div>
+        )}
 
         <Switch>
           <Route exact path="/" component={Products} />
@@ -73,6 +91,9 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    products: state.products,
+    auth: state.auth,
+  };
 }
 export default connect(mapStateToProps)(App);
