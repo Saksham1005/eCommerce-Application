@@ -53,6 +53,7 @@ Deployed the Frontend React Application on Netlify and Backend Node.js Express s
 
 **Server:** Node.js, Express.js
 
+**Database:** MongoDB (NoSQL)
 
 ## 🔗 Links
 [![Project Link](https://img.shields.io/badge/Project_Link-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ecommerce-prod-application.netlify.app/)
